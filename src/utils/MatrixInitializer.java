@@ -77,12 +77,12 @@ public class MatrixInitializer {
             int i = 1, j = 1;
             while (i < rows || j < cols) {
                 if (i < scoreMatrix.length) {
-                    scoreMatrix[i][0] = scoreMatrix[i-1][0] + gapScore;
+                    scoreMatrix[i][0] = gapScore * i;
                     i += 1;
                 }
 
                 if (j < scoreMatrix[0].length) {
-                    scoreMatrix[0][j] = scoreMatrix[0][j-1] + gapScore;
+                    scoreMatrix[0][j] = gapScore * j;
                     j +=1;
                 }
             }
