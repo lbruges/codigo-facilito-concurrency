@@ -9,7 +9,6 @@ import java.util.concurrent.ForkJoinPool;
 public class Main {
     public static void main(String[] args) {
         System.out.println("-------- Sequence Alignment! --------");
-
         ConstantsInfo constantsInfo = new ConstantsInfo("ACG", "ATCG", -2, 1,-1);
 
         MatrixInfo matrixInfo = MatrixInfo.builder()
