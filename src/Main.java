@@ -1,9 +1,13 @@
-import utils.MatrixInitializer;
+import utils.MatrixCalculatorTask;
+import utils.MatrixInfo;
+import utils.MatrixPrinter;
+
+import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("-------- Sequence Alignment! --------");
-        MatrixInitializer matrixInitializer = MatrixInitializer.builder()
+        MatrixInfo matrixInfo = MatrixInfo.builder()
                 .chainA("ACG")
                 .chainB("ATCG")
                 .gapScore(-2)
@@ -12,6 +16,10 @@ public class Main {
                 .withInitialGapValues()
                 .build();
 
-        matrixInitializer.printMatrix();
+        try (ForkJoinPool pool = new ForkJoinPool()) {
+            pool.invoke(new MatrixCalculatorTask(matrixInfo, matrixInfo.getScoreMatrix()));
+        }
+
+        MatrixPrinter.printMatrix(matrixInfo.getScoreMatrix());
     }
 }
