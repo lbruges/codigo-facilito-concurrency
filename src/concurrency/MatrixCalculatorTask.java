@@ -1,4 +1,6 @@
-package utils;
+package concurrency;
+
+import models.ConstantsInfo;
 
 import java.util.concurrent.RecursiveTask;
 
@@ -28,15 +30,15 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
         this.missScore = missScore;
     }
 
-    public MatrixCalculatorTask(MatrixInfo matrixInfo, int[][] scoreMatrix) {
-        this.chainA = matrixInfo.getChainA();
-        this.chainB = matrixInfo.getChainB();
+    public MatrixCalculatorTask(ConstantsInfo constantsInfo, int[][] scoreMatrix) {
+        this.chainA = constantsInfo.chainA();
+        this.chainB = constantsInfo.chainB();
         this.scoreMatrix = scoreMatrix;
         this.startRow = 1;
         this.endRow = chainA.length();
-        this.gapScore = matrixInfo.getGapScore();
-        this.matchScore = matrixInfo.getMatchScore();
-        this.missScore = matrixInfo.getMissScore();
+        this.gapScore = constantsInfo.gapScore();
+        this.matchScore = constantsInfo.matchScore();
+        this.missScore = constantsInfo.missScore();
     }
 
     @Override
