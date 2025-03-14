@@ -9,6 +9,7 @@ public class Main {
                 .gapScore(-2)
                 .missScore(-1)
                 .matchScore(1)
+                .withInitialGapValues()
                 .build();
 
         matrixInitializer.printMatrix();
