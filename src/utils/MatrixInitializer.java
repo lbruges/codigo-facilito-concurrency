@@ -93,12 +93,9 @@ public class MatrixInitializer {
                 for (int j = 1; j < scoreMatrix[0].length; j++) {
                     boolean isMatch = chainA.charAt(i - 1) == chainB.charAt(j - 1);
                     int cellScore = isMatch ? this.matchScore : this.missScore;
-                    int curr = IntStream.of(cellScore + scoreMatrix[i-1][j-1],
-                                    this.gapScore + scoreMatrix[i-1][j],
-                                    this.gapScore + scoreMatrix[i][j-1])
-                            .max()
-                            .orElse(this.gapScore + scoreMatrix[i-1][j]);
-                    scoreMatrix[i][j] = curr;
+                    
+                    scoreMatrix[i][j] = Math.max(cellScore, Math.max(this.gapScore + scoreMatrix[i-1][j],
+                            this.gapScore + scoreMatrix[i][j-1]));
                 }
             }
         }
