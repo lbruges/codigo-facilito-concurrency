@@ -1,33 +1,29 @@
 
-import concurrency.MatrixCalculatorTask;
-import models.ConstantsInfo;
+import controller.MatrixDecorator;
+import controller.impl.ConcurrentMatrixDecorator;
+import controller.impl.MatrixPrinterDecorator;
+import controller.impl.SequentialMatrixDecorator;
+import models.InputData;
 import models.MatrixInfo;
-import utils.MatrixPrinter;
-
-import java.util.concurrent.ForkJoinPool;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("-------- Sequence Alignment! --------");
-        ConstantsInfo constantsInfo = new ConstantsInfo("ACG", "ATCG", -2, 1,-1);
+        InputData inputData = new InputData("ACG", "ATCG", -2, 1,-1);
 
         MatrixInfo concurrent = MatrixInfo.builder()
-                .withConstantsInfo(constantsInfo)
-                .withInitialGapValues()
+                .withConstantsInfo(inputData)
                 .build();
 
-        MatrixInfo nonConcurrent = MatrixInfo.builder()
-                .withConstantsInfo(constantsInfo)
-                .withAllValues()
+        MatrixInfo sequential = MatrixInfo.builder()
+                .withConstantsInfo(inputData)
                 .build();
 
-        try (ForkJoinPool pool = new ForkJoinPool()) {
-            pool.invoke(new MatrixCalculatorTask(constantsInfo, concurrent.getScoreMatrix()));
-        }
 
-        System.out.println("Concurrent:\n--------");
-        MatrixPrinter.printMatrix(concurrent.getScoreMatrix());
-        System.out.println("--------\nNon-Concurrent:\n--------");
-        MatrixPrinter.printMatrix(nonConcurrent.getScoreMatrix());
+        MatrixDecorator concurrentDecorator = new ConcurrentMatrixDecorator(new MatrixPrinterDecorator());
+        concurrentDecorator.decorateMatrix(concurrent);
+
+        MatrixDecorator seqDecorator = new SequentialMatrixDecorator(new MatrixPrinterDecorator());
+        seqDecorator.decorateMatrix(sequential);
     }
 }

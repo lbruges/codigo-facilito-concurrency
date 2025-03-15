@@ -1,6 +1,7 @@
 package concurrency;
 
-import models.ConstantsInfo;
+import models.MatrixInfo;
+import models.InputData;
 
 import java.util.concurrent.RecursiveTask;
 
@@ -8,34 +9,33 @@ import static java.lang.Math.max;
 
 public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
-    private final ConstantsInfo constantsInfo;
-    private final int[][] scoreMatrix;
+    private final MatrixInfo matrixInfo;
     private final int startRow;
     private final int endRow;
 
-    public MatrixCalculatorTask(ConstantsInfo constantsInfo, int[][] scoreMatrix,
-                                int startRow, int endRow) {
-        this.constantsInfo = constantsInfo;
-        this.scoreMatrix = scoreMatrix;
+    public MatrixCalculatorTask(MatrixInfo matrixInfo, int startRow, int endRow) {
+        this.matrixInfo = matrixInfo;
         this.startRow = startRow;
         this.endRow = endRow;
     }
 
-    public MatrixCalculatorTask(ConstantsInfo constantsInfo, int[][] scoreMatrix) {
-        this.constantsInfo = constantsInfo;
-        this.scoreMatrix = scoreMatrix;
+    public MatrixCalculatorTask(MatrixInfo matrixInfo) {
+        this.matrixInfo = matrixInfo;
         this.startRow = 1;
-        this.endRow = constantsInfo.seqA().length();
+        this.endRow = matrixInfo.getMatrixInput().seqA().length();
     }
 
     @Override
     protected Void compute() {
+        var matrixInput = matrixInfo.getMatrixInput();
+        var scoreMatrix = matrixInfo.getScoreMatrix();
+
         for (int i = startRow; i <= endRow; i++) {
-            for (int j = 1; j <= constantsInfo.seqB().length(); j++) {
-                int curr = scoreMatrix[i-1][j-1] + matchOrMiss(constantsInfo.seqA().charAt(i-1),
-                        constantsInfo.seqB().charAt(j-1));
-                int up = scoreMatrix[i-1][j] + constantsInfo.gapScore();
-                int left = scoreMatrix[i][j-1] + constantsInfo.gapScore();
+            for (int j = 1; j <= matrixInput.seqB().length(); j++) {
+                int curr = scoreMatrix[i-1][j-1] + matchOrMiss(matrixInput.seqA().charAt(i-1),
+                        matrixInput.seqB().charAt(j-1), matrixInput);
+                int up = scoreMatrix[i-1][j] + matrixInput.gapScore();
+                int left = scoreMatrix[i][j-1] + matrixInput.gapScore();
 
                 scoreMatrix[i][j] = max(curr, max(up, left));
             }
@@ -43,8 +43,8 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
         if ((endRow - startRow) > 1) {
             int midRow = (startRow + endRow) / 2;
-            MatrixCalculatorTask upperMid = new MatrixCalculatorTask(constantsInfo, scoreMatrix, startRow, midRow);
-            MatrixCalculatorTask lowerMid = new MatrixCalculatorTask(constantsInfo, scoreMatrix, midRow, endRow);
+            MatrixCalculatorTask upperMid = new MatrixCalculatorTask(matrixInfo, startRow, midRow);
+            MatrixCalculatorTask lowerMid = new MatrixCalculatorTask(matrixInfo, midRow, endRow);
 
             invokeAll(upperMid, lowerMid);
         }
@@ -52,11 +52,11 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
         return null;
     }
 
-    private int matchOrMiss(char baseA, char baseB) {
+    private int matchOrMiss(char baseA, char baseB, InputData inputData) {
         if (baseA == baseB) {
-            return constantsInfo.matchScore();
+            return inputData.matchScore();
         }
 
-        return constantsInfo.missScore();
+        return inputData.missScore();
     }
 }
