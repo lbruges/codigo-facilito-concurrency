@@ -25,15 +25,15 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
         this.constantsInfo = constantsInfo;
         this.scoreMatrix = scoreMatrix;
         this.startRow = 1;
-        this.endRow = constantsInfo.chainA().length();
+        this.endRow = constantsInfo.seqA().length();
     }
 
     @Override
     protected Void compute() {
         for (int i = startRow; i <= endRow; i++) {
-            for (int j = 1; j <= constantsInfo.chainB().length(); j++) {
-                int curr = scoreMatrix[i-1][j-1] + matchOrMiss(constantsInfo.chainA().charAt(i-1),
-                        constantsInfo.chainB().charAt(j-1));
+            for (int j = 1; j <= constantsInfo.seqB().length(); j++) {
+                int curr = scoreMatrix[i-1][j-1] + matchOrMiss(constantsInfo.seqA().charAt(i-1),
+                        constantsInfo.seqB().charAt(j-1));
                 int up = scoreMatrix[i-1][j] + constantsInfo.gapScore();
                 int left = scoreMatrix[i][j-1] + constantsInfo.gapScore();
 

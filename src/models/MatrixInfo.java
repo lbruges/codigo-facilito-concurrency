@@ -53,8 +53,8 @@ public class MatrixInfo {
         }
 
         private int[][] addInitialGapValues() {
-            int rows = constantsInfo.chainA().length() + 1;
-            int cols = constantsInfo.chainB().length() + 1;
+            int rows = constantsInfo.seqA().length() + 1;
+            int cols = constantsInfo.seqB().length() + 1;
 
             int[][] scoreMatrix = new int[rows][cols];
             int i = 1, j = 1;
@@ -77,7 +77,7 @@ public class MatrixInfo {
             int gapScore = constantsInfo.gapScore();
             for (int i = 1; i < scoreMatrix.length; i++) {
                 for (int j = 1; j < scoreMatrix[0].length; j++) {
-                    boolean isMatch = constantsInfo.chainA().charAt(i-1) == constantsInfo.chainB().charAt(j-1);
+                    boolean isMatch = constantsInfo.seqA().charAt(i-1) == constantsInfo.seqB().charAt(j-1);
                     int cellScore = (isMatch ? constantsInfo.matchScore() : constantsInfo.missScore())
                             + scoreMatrix[i-1][j-1];
 

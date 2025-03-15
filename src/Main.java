@@ -20,7 +20,7 @@ public class Main {
                 .withConstantsInfo(constantsInfo)
                 .withAllValues()
                 .build();
-        
+
         try (ForkJoinPool pool = new ForkJoinPool()) {
             pool.invoke(new MatrixCalculatorTask(constantsInfo, concurrent.getScoreMatrix()));
         }

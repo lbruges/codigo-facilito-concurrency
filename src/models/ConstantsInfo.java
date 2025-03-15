@@ -1,4 +1,4 @@
 package models;
 
-public record ConstantsInfo(String chainA, String chainB, int gapScore, int matchScore, int missScore) {
+public record ConstantsInfo(String seqA, String seqB, int gapScore, int matchScore, int missScore) {
 }
