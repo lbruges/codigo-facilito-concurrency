@@ -26,7 +26,6 @@ public class Main {
             pool.invoke(new MatrixCalculatorTask(constantsInfo, concurrent.getScoreMatrix()));
         }
 
-
         System.out.println("Concurrent:\n--------");
         MatrixPrinter.printMatrix(concurrent.getScoreMatrix());
         System.out.println("--------\nNon-Concurrent:\n--------");
