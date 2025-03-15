@@ -30,7 +30,7 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
     @Override
     protected Void compute() {
-        for (int i = startRow; i < endRow; i++) {
+        for (int i = startRow; i <= endRow; i++) {
             for (int j = 1; j <= constantsInfo.chainB().length(); j++) {
                 int curr = scoreMatrix[i-1][j-1] + matchOrMiss(constantsInfo.chainA().charAt(i-1),
                         constantsInfo.chainB().charAt(j-1));

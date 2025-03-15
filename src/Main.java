@@ -20,8 +20,7 @@ public class Main {
                 .withConstantsInfo(constantsInfo)
                 .withAllValues()
                 .build();
-
-        // TODO: why getting different results sync vs async
+        
         try (ForkJoinPool pool = new ForkJoinPool()) {
             pool.invoke(new MatrixCalculatorTask(constantsInfo, concurrent.getScoreMatrix()));
         }
