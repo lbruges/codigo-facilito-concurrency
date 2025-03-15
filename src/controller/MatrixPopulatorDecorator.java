@@ -2,16 +2,14 @@ package controller;
 
 import models.MatrixInfo;
 
-public abstract class AbstractMatrixDecorator implements MatrixDecorator {
+public abstract class MatrixPopulatorDecorator extends AllowsIntermediateDecorator {
 
-    protected final MatrixDecorator next;
-
-    public AbstractMatrixDecorator() {
-        this.next = null;
+    public MatrixPopulatorDecorator() {
+        super();
     }
 
-    public AbstractMatrixDecorator(MatrixDecorator next) {
-        this.next = next;
+    public MatrixPopulatorDecorator(MatrixDecorator next) {
+        super(next);
     }
 
     public void decorateMatrix(MatrixInfo matrixInfo) {

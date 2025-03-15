@@ -1,14 +1,14 @@
 package controller.impl;
 
 import concurrency.MatrixCalculatorTask;
-import controller.AbstractMatrixDecorator;
+import controller.MatrixPopulatorDecorator;
 import controller.MatrixDecorator;
 import models.MatrixInfo;
 
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 
-public class ConcurrentMatrixDecorator extends AbstractMatrixDecorator {
+public class ConcurrentMatrixDecorator extends MatrixPopulatorDecorator {
 
     public ConcurrentMatrixDecorator() {
         super();
@@ -27,7 +27,7 @@ public class ConcurrentMatrixDecorator extends AbstractMatrixDecorator {
             pool.invoke(new MatrixCalculatorTask(matrixInfo));
         }
 
-        Optional.ofNullable(next)
+        Optional.ofNullable(next())
                 .ifPresent(matrixDecorator -> matrixDecorator.decorateMatrix(matrixInfo));
     }
 

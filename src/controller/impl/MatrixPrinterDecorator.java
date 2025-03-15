@@ -12,4 +12,9 @@ public class MatrixPrinterDecorator implements MatrixDecorator {
                 .map(Arrays::toString)
                 .forEach(System.out::println);
     }
+
+    @Override
+    public MatrixDecorator next() {
+        return null;
+    }
 }

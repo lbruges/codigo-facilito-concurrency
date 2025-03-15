@@ -1,6 +1,6 @@
 package controller.impl;
 
-import controller.AbstractMatrixDecorator;
+import controller.MatrixPopulatorDecorator;
 import controller.MatrixDecorator;
 import models.MatrixInfo;
 
@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static java.lang.Math.max;
 
-public class SequentialMatrixDecorator extends AbstractMatrixDecorator {
+public class SequentialMatrixDecorator extends MatrixPopulatorDecorator {
 
     public SequentialMatrixDecorator() {
         super();
@@ -38,7 +38,7 @@ public class SequentialMatrixDecorator extends AbstractMatrixDecorator {
             }
         }
 
-        Optional.ofNullable(next)
+        Optional.ofNullable(next())
                 .ifPresent(matrixDecorator -> matrixDecorator.decorateMatrix(matrixInfo));
     }
 

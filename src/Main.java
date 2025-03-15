@@ -1,6 +1,7 @@
 
 import controller.MatrixDecorator;
 import controller.impl.ConcurrentMatrixDecorator;
+import controller.impl.ExecutionLoggableDecorator;
 import controller.impl.MatrixPrinterDecorator;
 import controller.impl.SequentialMatrixDecorator;
 import models.InputData;
@@ -20,10 +21,10 @@ public class Main {
                 .build();
 
 
-        MatrixDecorator concurrentDecorator = new ConcurrentMatrixDecorator(new MatrixPrinterDecorator());
+        MatrixDecorator concurrentDecorator = new ExecutionLoggableDecorator(new ConcurrentMatrixDecorator(new MatrixPrinterDecorator()));
         concurrentDecorator.decorateMatrix(concurrent);
 
-        MatrixDecorator seqDecorator = new SequentialMatrixDecorator(new MatrixPrinterDecorator());
+        MatrixDecorator seqDecorator = new ExecutionLoggableDecorator(new SequentialMatrixDecorator(new MatrixPrinterDecorator()));
         seqDecorator.decorateMatrix(sequential);
     }
 }
