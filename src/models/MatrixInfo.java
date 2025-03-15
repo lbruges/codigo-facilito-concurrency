@@ -77,8 +77,9 @@ public class MatrixInfo {
             int gapScore = constantsInfo.gapScore();
             for (int i = 1; i < scoreMatrix.length; i++) {
                 for (int j = 1; j < scoreMatrix[0].length; j++) {
-                    boolean isMatch = constantsInfo.chainA().charAt(i - 1) == constantsInfo.chainB().charAt(j - 1);
-                    int cellScore = isMatch ? constantsInfo.matchScore() : constantsInfo.missScore();
+                    boolean isMatch = constantsInfo.chainA().charAt(i-1) == constantsInfo.chainB().charAt(j-1);
+                    int cellScore = (isMatch ? constantsInfo.matchScore() : constantsInfo.missScore())
+                            + scoreMatrix[i-1][j-1];
 
                     scoreMatrix[i][j] = max(cellScore, max(gapScore + scoreMatrix[i-1][j],
                             gapScore + scoreMatrix[i][j-1]));
