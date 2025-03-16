@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Holds input and score matrix data.
+ */
 public class MatrixInfo {
 
     private final int[][] scoreMatrix;
@@ -32,6 +35,7 @@ public class MatrixInfo {
         }
 
         public MatrixInfo build() {
+            // Initializes all-zeroes integer matrix based on sequences length
             this.scoreMatrix = new int[inputData.seqA().length() + 1][inputData.seqB().length() + 1];
             return new MatrixInfo(this);
         }

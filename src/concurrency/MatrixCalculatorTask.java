@@ -7,6 +7,9 @@ import java.util.concurrent.RecursiveTask;
 
 import static java.lang.Math.max;
 
+/**
+ * Recursive task to be used as input for the fork-join framework.
+ */
 public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
     private final MatrixInfo matrixInfo;
