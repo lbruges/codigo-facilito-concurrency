@@ -25,20 +25,16 @@ public class Main {
         InputData inputData = new InputData(seqA, seqB, scoreProps.getGapScore(), scoreProps.getMatchScore(),
                 scoreProps.getMissScore());
 
-        MatrixInfo concurrent = MatrixInfo.builder()
-                .withConstantsInfo(inputData)
-                .build();
-
-        MatrixInfo sequential = MatrixInfo.builder()
+        MatrixInfo matrixInfo = MatrixInfo.builder()
                 .withConstantsInfo(inputData)
                 .build();
 
         MatrixDecoratorFactory decoratorFactory = new MatrixDecoratorFactory();
         MatrixDecorator matrixDecorator = decoratorFactory.defineDecorator(matrixProps);
-        matrixDecorator.decorateMatrix(sequential);
+        matrixDecorator.decorateMatrix(matrixInfo);
 
         SequenceAligner sequenceAligner = new BacktrackSequenceAligner();
-        var result = sequenceAligner.alignSequences(concurrent);
+        var result = sequenceAligner.alignSequences(matrixInfo);
 
         AlignedSequencesPrinter sequencesPrinter = new AlignedSequencesPrinterFactory().definePrinter(globalProps
                 .getBacktrackerProperties());
