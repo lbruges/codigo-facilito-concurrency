@@ -1,5 +1,7 @@
 
 import controller.MatrixDecorator;
+import controller.SequenceAligner;
+import controller.impl.BacktrackSequenceAligner;
 import controller.impl.ConcurrentMatrixDecorator;
 import controller.impl.ExecutionLoggableDecorator;
 import controller.impl.MatrixPrinterDecorator;
@@ -26,5 +28,10 @@ public class Main {
 
         MatrixDecorator seqDecorator = new ExecutionLoggableDecorator(new SequentialMatrixDecorator(new MatrixPrinterDecorator()));
         seqDecorator.decorateMatrix(sequential);
+
+        SequenceAligner sequenceAligner = new BacktrackSequenceAligner();
+        var result = sequenceAligner.alignSequences(concurrent);
+        result.printSequences();
+
     }
 }
