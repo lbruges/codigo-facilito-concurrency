@@ -1,11 +1,11 @@
 package com.codigofacilito.common.props.model;
 
+import java.util.Optional;
 import java.util.Properties;
 
 import static com.codigofacilito.common.props.util.PropsUtils.PROPS_SEPARATOR;
 import static com.codigofacilito.common.props.util.PropsUtils.readBooleanProperty;
 import static com.codigofacilito.common.props.util.PropsUtils.readIntegerProperty;
-import static java.util.Objects.isNull;
 
 public class ConcurrencyProperties implements PropsWithPrefix {
     private final boolean enabled;
@@ -59,10 +59,6 @@ public class ConcurrencyProperties implements PropsWithPrefix {
         }
 
         public ConcurrencyProperties build() {
-            if (isNull(properties)) {
-                return new ConcurrencyProperties(this);
-            }
-
             enabled = readBooleanProperty(properties, String.join(PROPS_SEPARATOR, basePath,
                     "enabled"), enabled);
             poolSize = readIntegerProperty(properties, String.join(PROPS_SEPARATOR, basePath,
@@ -71,18 +67,6 @@ public class ConcurrencyProperties implements PropsWithPrefix {
                     "seq-threshold"), sequentialThreshold);
 
             return new ConcurrencyProperties(this);
-        }
-
-        public boolean isEnabled() {
-            return enabled;
-        }
-
-        public int getPoolSize() {
-            return poolSize;
-        }
-
-        public int getSequentialThreshold() {
-            return sequentialThreshold;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.codigofacilito.common.props.model;
 
+import java.util.Optional;
 import java.util.Properties;
 
 import static com.codigofacilito.common.props.model.PrinterProperties.PrinterOutput.CONSOLE;
@@ -45,40 +46,31 @@ public class MatrixProcessorProperties implements PropsWithPrefix {
 
     public static class MatrixPropsBuilder {
 
-        private Properties properties;
+        private Optional<Properties> propertiesOpt;
         private ConcurrencyProperties concurrency;
         private PrinterProperties printer;
 
-        public MatrixPropsBuilder withProperties(Properties properties) {
-            this.properties = properties;
+        public MatrixPropsBuilder withProperties(Optional<Properties> propertiesOpt) {
+            this.propertiesOpt = propertiesOpt;
             return this;
         }
 
         public MatrixProcessorProperties build() {
-            if (isNull(properties)) {
-                return DEFAULT;
-            }
+            return propertiesOpt.map(properties -> {
+                this.printer = PrinterProperties.builder()
+                        .fromProperties(PROPS_PREFIX, properties)
+                        .orDefault(DEFAULT.printer)
+                        .build();
 
-            this.printer = PrinterProperties.builder()
-                    .fromProperties(PROPS_PREFIX, properties)
-                    .orDefault(DEFAULT.printer)
-                    .build();
+                this.concurrency = ConcurrencyProperties.builder()
+                        .fromProperties(PROPS_PREFIX, properties)
+                        .orDefault(DEFAULT.concurrency)
+                        .build();
 
-            this.concurrency = ConcurrencyProperties.builder()
-                    .fromProperties(PROPS_PREFIX, properties)
-                    .orDefault(DEFAULT.concurrency)
-                    .build();
-
-            return new MatrixProcessorProperties(this);
+                return new MatrixProcessorProperties(this);
+            }).orElse(DEFAULT);
         }
 
-        public ConcurrencyProperties getConcurrency() {
-            return concurrency;
-        }
-
-        public PrinterProperties getPrinter() {
-            return printer;
-        }
     }
 
 }

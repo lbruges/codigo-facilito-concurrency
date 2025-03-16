@@ -1,12 +1,12 @@
 package com.codigofacilito.common.props.model;
 
+import java.util.Optional;
 import java.util.Properties;
 
 import static com.codigofacilito.common.props.util.PropsUtils.PROPS_SEPARATOR;
 import static com.codigofacilito.common.props.util.PropsUtils.readBooleanProperty;
 import static com.codigofacilito.common.props.util.PropsUtils.readEnumProperty;
 import static com.codigofacilito.common.props.util.PropsUtils.readStringProperty;
-import static java.util.Objects.isNull;
 
 public class PrinterProperties implements PropsWithPrefix {
 
@@ -76,10 +76,6 @@ public class PrinterProperties implements PropsWithPrefix {
         }
 
         public PrinterProperties build() {
-            if (isNull(properties)) {
-                return new PrinterProperties(this);
-            }
-
             enabled = readBooleanProperty(properties, String.join(PROPS_SEPARATOR, basePath,
                     "enabled"), enabled);
             output = readEnumProperty(properties, String.join(PROPS_SEPARATOR, basePath,
