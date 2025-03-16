@@ -12,6 +12,7 @@ import static java.lang.Math.max;
  */
 public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
+    private static final int SEQUENTIAL_THRESHOLD = 20;  // TODO: Externalize to tune
     private final MatrixInfo matrixInfo;
     private final int startRow;
     private final int endRow;
@@ -23,13 +24,31 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
     }
 
     public MatrixCalculatorTask(MatrixInfo matrixInfo) {
-        this.matrixInfo = matrixInfo;
-        this.startRow = 1;
-        this.endRow = matrixInfo.getMatrixInput().seqA().length();
+        this(matrixInfo, 1, matrixInfo.getMatrixInput().seqA().length());
     }
 
     @Override
     protected Void compute() {
+        int numRows = endRow - startRow;
+
+        // Controlling splitting by using a threshold
+        if (numRows <= SEQUENTIAL_THRESHOLD) {
+            computeSequentially();
+        } else {
+            // Split the rows in two, as they're independent and can be computed in parallel
+            int midRow = (startRow + endRow) / 2;
+            MatrixCalculatorTask upperTask = new MatrixCalculatorTask(matrixInfo, startRow, midRow);
+            MatrixCalculatorTask lowerTask = new MatrixCalculatorTask(matrixInfo, midRow, endRow);
+
+            // Fork one task and compute the other in parallel
+            lowerTask.fork();
+            upperTask.compute();
+            lowerTask.join();
+        }
+        return null;
+    }
+
+    private void computeSequentially() {
         var matrixInput = matrixInfo.getMatrixInput();
         var scoreMatrix = matrixInfo.getScoreMatrix();
 
@@ -43,23 +62,9 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
                 scoreMatrix[i][j] = max(curr, max(up, left));
             }
         }
-
-        if ((endRow - startRow) > 1) {
-            int midRow = (startRow + endRow) / 2;
-            MatrixCalculatorTask upperMid = new MatrixCalculatorTask(matrixInfo, startRow, midRow);
-            MatrixCalculatorTask lowerMid = new MatrixCalculatorTask(matrixInfo, midRow, endRow);
-
-            invokeAll(upperMid, lowerMid);
-        }
-
-        return null;
     }
 
     private int matchOrMiss(char baseA, char baseB, InputData inputData) {
-        if (baseA == baseB) {
-            return inputData.matchScore();
-        }
-
-        return inputData.missScore();
+        return (baseA == baseB) ? inputData.matchScore() : inputData.missScore();
     }
 }

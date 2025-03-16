@@ -14,7 +14,11 @@ import view.impl.FileSeqPrinter;
 public class Main {
     public static void main(String[] args) {
         System.out.println("-------- Sequence Alignment! --------");
-        InputData inputData = new InputData("ACG", "ATCG", -2, 1,-1);
+        String seqA = "ATGCATGCTCCTTGGAGGGGCTCTGCCCTATCGCTGCAGGATCCCCACTCAGCTGAAGTTGATACCTGATGACATGAAGGAGCAGATTTACAAACTGGCCAAAAAGGGCCTGACTCCCTCACAAGTCAGTGTGATCCTGAGAGATGCACATGTGTTGCACAAGTACGCTTTGTGACAGGCAATGAAATCTTAAGAATTCTTAAGTCCAAGGGACTTGCTCTTGATCTCCCTGATGATCTGTACCATTCAATCAAGAAAGCAGTTGCTATTTGAAAGCATCTCAAACAAAACAGAAAGGATAAGGATGCTAAACTATGCCTGATTCTGACAGAGAGCCGGATTCACCATTTGGCTAGATATTATAAGACCAAGTGAATCCTCCCTCCCAGTTGGAAATATGAGTCATCAACAAACAGCCTCTGCCCTGCTCGCATAA";
+        String seqB = "CTCAGAACCCTTGGGAAGCCCAAGATCGTCAAAAAGAGAACCAAGAAGTTTATCCGGCACCAGTCTGACCGATATGTCAAAATTAAGCGTAACCGGCGGAAACCCAGAGGTATTGACAACAGGGTTCGTGGAAGGTTCAAGGGTTAGATCTTGATGCCCAACATTGATTATGGGAGCAACAAGAAAACAAAGCACATGCTGCCCAGTGGCTTCCGGAAATTCCTGGTCCACACGTCAAGGAGCTGGAAGTGCTGCTGTTGTGCAACAAATCTTACTGTGCTGAGATCGCTCACAATGTTTCCTCCAAGAACCGCAAAGCCATCGTGGAAAAGAGCTGCCCAGCTGGCCGTCAGAGTCACCAACCCCAATCCCAGGCTGCGCAGCAAAGAAAATGAG";
+
+        InputData inputData = new InputData(seqA,
+                seqB, -2, 1,-1);
 
         MatrixInfo concurrent = MatrixInfo.builder()
                 .withConstantsInfo(inputData)
@@ -24,11 +28,12 @@ public class Main {
                 .withConstantsInfo(inputData)
                 .build();
 
-
-        MatrixDecorator concurrentDecorator = new ExecutionLoggableDecorator(new ConcurrentMatrixDecorator(new MatrixPrinterDecorator()));
+        // Use new ExecutionLoggableDecorator(new ConcurrentMatrixDecorator(new MatrixPrinterDecorator())); if wanting to print to console.
+        // TODO: add writing matrix to text file support
+        MatrixDecorator concurrentDecorator = new ExecutionLoggableDecorator(new ConcurrentMatrixDecorator());
         concurrentDecorator.decorateMatrix(concurrent);
 
-        MatrixDecorator seqDecorator = new ExecutionLoggableDecorator(new SequentialMatrixDecorator(new MatrixPrinterDecorator()));
+        MatrixDecorator seqDecorator = new ExecutionLoggableDecorator(new SequentialMatrixDecorator());
         seqDecorator.decorateMatrix(sequential);
 
         SequenceAligner sequenceAligner = new BacktrackSequenceAligner();
