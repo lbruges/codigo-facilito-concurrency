@@ -2,6 +2,11 @@ package com.codigofacilito.needlewunsch.controller;
 
 import com.codigofacilito.needlewunsch.models.MatrixInfo;
 
+/**
+ * Intermediate abstract operator that performs an operation common to the sequential and parallel version of the
+ * Needleman-Wunsch Algorithm.
+ *
+ */
 public abstract class MatrixPopulatorDecorator extends AllowsIntermediateDecorator {
 
     public MatrixPopulatorDecorator() {
@@ -12,6 +17,12 @@ public abstract class MatrixPopulatorDecorator extends AllowsIntermediateDecorat
         super(next);
     }
 
+    /**
+     * Initializes the external values of the matrix (first row and first column), which corresponds to the gap score
+     * times the current index.
+     *
+     * @param matrixInfo matrix information.
+     */
     public void decorateMatrix(MatrixInfo matrixInfo) {
         var matrixInput = matrixInfo.getMatrixInput();
         int[][] scoreMatrix = matrixInfo.getScoreMatrix();

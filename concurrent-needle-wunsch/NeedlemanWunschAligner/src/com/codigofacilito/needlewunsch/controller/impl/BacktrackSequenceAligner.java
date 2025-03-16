@@ -7,6 +7,9 @@ import com.codigofacilito.needlewunsch.models.MatrixInfo;
 
 import static com.codigofacilito.needlewunsch.models.InputData.GAP_CHAR;
 
+/**
+ * Uses a backtracking algorithm to produce an aligned version of both sequences based on the scoring matrix.
+ */
 public class BacktrackSequenceAligner implements SequenceAligner {
 
     @Override
