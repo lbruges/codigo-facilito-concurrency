@@ -8,6 +8,8 @@ import controller.impl.MatrixPrinterDecorator;
 import controller.impl.SequentialMatrixDecorator;
 import models.InputData;
 import models.MatrixInfo;
+import view.AlignedSequencesPrinter;
+import view.impl.FileSeqPrinter;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,7 +33,8 @@ public class Main {
 
         SequenceAligner sequenceAligner = new BacktrackSequenceAligner();
         var result = sequenceAligner.alignSequences(concurrent);
-        result.printSequences();
 
+        AlignedSequencesPrinter sequencesPrinter = new FileSeqPrinter();
+        sequencesPrinter.print(result);
     }
 }
