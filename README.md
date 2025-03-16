@@ -1,7 +1,7 @@
 # codigo-facilito-concurrency
 
 Sample properties:
-´´´
+```
 backtracker.printer.enabled=true
 backtracker.printer.output=FILE
 backtracker.printer.filename=alignment_result.txt
@@ -15,4 +15,4 @@ matrix.score.gap=-2
 matrix.score.match=1
 matrix.score.miss=-1
 matrix.log-exec-time=true
-´´´
+```
