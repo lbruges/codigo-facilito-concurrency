@@ -1,11 +1,11 @@
-package controller.impl;
+package needlewunsch.controller.impl;
 
-import controller.SequenceAligner;
-import models.AlignedSequences;
-import models.InputData;
-import models.MatrixInfo;
+import needlewunsch.controller.SequenceAligner;
+import needlewunsch.models.AlignedSequences;
+import needlewunsch.models.InputData;
+import needlewunsch.models.MatrixInfo;
 
-import static models.InputData.GAP_CHAR;
+import static needlewunsch.models.InputData.GAP_CHAR;
 
 public class BacktrackSequenceAligner implements SequenceAligner {
 

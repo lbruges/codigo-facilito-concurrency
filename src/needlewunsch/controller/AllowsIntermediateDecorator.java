@@ -1,4 +1,4 @@
-package controller;
+package needlewunsch.controller;
 
 public abstract class AllowsIntermediateDecorator implements MatrixDecorator {
     private final MatrixDecorator next;

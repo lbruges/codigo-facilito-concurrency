@@ -1,6 +1,6 @@
-package controller;
+package needlewunsch.controller;
 
-import models.MatrixInfo;
+import needlewunsch.models.MatrixInfo;
 
 public abstract class MatrixPopulatorDecorator extends AllowsIntermediateDecorator {
 

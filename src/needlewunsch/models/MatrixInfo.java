@@ -1,4 +1,4 @@
-package models;
+package needlewunsch.models;
 
 /**
  * Holds input and score matrix data.

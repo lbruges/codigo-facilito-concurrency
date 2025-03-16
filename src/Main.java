@@ -1,15 +1,14 @@
 
-import controller.MatrixDecorator;
-import controller.SequenceAligner;
-import controller.impl.BacktrackSequenceAligner;
-import controller.impl.ConcurrentMatrixDecorator;
-import controller.impl.ExecutionLoggableDecorator;
-import controller.impl.MatrixPrinterDecorator;
-import controller.impl.SequentialMatrixDecorator;
-import models.InputData;
-import models.MatrixInfo;
-import view.AlignedSequencesPrinter;
-import view.impl.FileSeqPrinter;
+import needlewunsch.controller.MatrixDecorator;
+import needlewunsch.controller.SequenceAligner;
+import needlewunsch.controller.impl.BacktrackSequenceAligner;
+import needlewunsch.controller.impl.ConcurrentMatrixDecorator;
+import needlewunsch.controller.impl.ExecutionLoggableDecorator;
+import needlewunsch.controller.impl.SequentialMatrixDecorator;
+import needlewunsch.models.InputData;
+import needlewunsch.models.MatrixInfo;
+import needlewunsch.view.AlignedSequencesPrinter;
+import needlewunsch.view.impl.FileSeqPrinter;
 
 public class Main {
     public static void main(String[] args) {

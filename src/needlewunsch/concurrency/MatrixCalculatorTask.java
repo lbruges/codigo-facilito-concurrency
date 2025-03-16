@@ -1,7 +1,7 @@
-package concurrency;
+package needlewunsch.concurrency;
 
-import models.MatrixInfo;
-import models.InputData;
+import needlewunsch.models.MatrixInfo;
+import needlewunsch.models.InputData;
 
 import java.util.concurrent.RecursiveTask;
 

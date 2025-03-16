@@ -1,7 +1,7 @@
-package view.impl;
+package needlewunsch.view.impl;
 
-import models.AlignedSequences;
-import view.AlignedSequencesPrinter;
+import needlewunsch.models.AlignedSequences;
+import needlewunsch.view.AlignedSequencesPrinter;
 
 public class SeqConsolePrinter implements AlignedSequencesPrinter {
     @Override

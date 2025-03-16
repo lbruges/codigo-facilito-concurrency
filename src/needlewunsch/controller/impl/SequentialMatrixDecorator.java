@@ -1,8 +1,8 @@
-package controller.impl;
+package needlewunsch.controller.impl;
 
-import controller.MatrixPopulatorDecorator;
-import controller.MatrixDecorator;
-import models.MatrixInfo;
+import needlewunsch.controller.MatrixPopulatorDecorator;
+import needlewunsch.controller.MatrixDecorator;
+import needlewunsch.models.MatrixInfo;
 
 import java.util.Optional;
 

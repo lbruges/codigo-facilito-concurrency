@@ -1,6 +1,6 @@
-package view;
+package needlewunsch.view;
 
-import models.AlignedSequences;
+import needlewunsch.models.AlignedSequences;
 
 public interface AlignedSequencesPrinter {
 
