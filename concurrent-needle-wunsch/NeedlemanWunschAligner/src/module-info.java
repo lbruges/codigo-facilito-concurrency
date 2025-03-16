@@ -1,0 +1,3 @@
+module NeedlemanWunschAligner {
+    requires CommonProperties;
+}

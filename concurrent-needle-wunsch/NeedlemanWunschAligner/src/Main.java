@@ -6,6 +6,7 @@ import controller.impl.ExecutionLoggableDecorator;
 import controller.impl.SequentialMatrixDecorator;
 import models.InputData;
 import models.MatrixInfo;
+import reader.GlobalProperties;
 import view.AlignedSequencesPrinter;
 import view.impl.FileSeqPrinter;
 
@@ -17,7 +18,7 @@ public class Main {
         String seqB = "CTCAGAACCCTTGGGAAGCCCAAGATCGTCAAAAAGAGAACCAAGAAGTTTATCCGGCACCAGTCTGACCGATATGTCAAAATTAAGCGTAACCGGCGGAAACCCAGAGGTATTGACAACAGGGTTCGTGGAAGGTTCAAGGGTTAGATCTTGATGCCCAACATTGATTATGGGAGCAACAAGAAAACAAAGCACATGCTGCCCAGTGGCTTCCGGAAATTCCTGGTCCACACGTCAAGGAGCTGGAAGTGCTGCTGTTGTGCAACAAATCTTACTGTGCTGAGATCGCTCACAATGTTTCCTCCAAGAACCGCAAAGCCATCGTGGAAAAGAGCTGCCCAGCTGGCCGTCAGAGTCACCAACCCCAATCCCAGGCTGCGCAGCAAAGAAAATGAG";
 
         InputData inputData = new InputData(seqA,
-                seqB, -2, 1,-1);
+                seqB, GlobalProperties.getInstance().getMatrixProperties().getScoreProperties().getGapScore(), 1,-1);
 
         MatrixInfo concurrent = MatrixInfo.builder()
                 .withConstantsInfo(inputData)
