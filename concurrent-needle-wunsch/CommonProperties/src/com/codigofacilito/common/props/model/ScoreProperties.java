@@ -42,6 +42,10 @@ public class ScoreProperties implements PropsWithPrefix {
         return matchScore;
     }
 
+    public int getMissScore() {
+        return missScore;
+    }
+
     @Override
     public String toString() {
         return "ScoreProperties{" +

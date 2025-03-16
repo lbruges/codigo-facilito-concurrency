@@ -11,7 +11,7 @@ public class ConcurrencyProperties implements PropsWithPrefix {
     private final int poolSize;
     private final int sequentialThreshold;
 
-    private static final String PROPS_PREFIX = "com.codigofacilito.needlewunsch.concurrency";
+    private static final String PROPS_PREFIX = "concurrency";
 
     public ConcurrencyProperties(boolean enabled, int poolSize, int sequentialThreshold) {
         this.enabled = enabled;
@@ -32,6 +32,18 @@ public class ConcurrencyProperties implements PropsWithPrefix {
     @Override
     public String getPrefix() {
         return PROPS_PREFIX;
+    }
+
+    public int getSequentialThreshold() {
+        return sequentialThreshold;
+    }
+
+    public int getPoolSize() {
+        return poolSize;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     @Override

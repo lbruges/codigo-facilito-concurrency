@@ -1,5 +1,7 @@
 package com.codigofacilito.needlewunsch.controller.impl;
 
+import com.codigofacilito.common.props.model.ConcurrencyProperties;
+import com.codigofacilito.common.props.reader.GlobalProperties;
 import com.codigofacilito.needlewunsch.concurrency.MatrixCalculatorTask;
 import com.codigofacilito.needlewunsch.controller.MatrixPopulatorDecorator;
 import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
@@ -10,12 +12,16 @@ import java.util.concurrent.ForkJoinPool;
 
 public class ConcurrentMatrixDecorator extends MatrixPopulatorDecorator {
 
-    public ConcurrentMatrixDecorator() {
+    private final ConcurrencyProperties concurrencyProperties;
+
+    public ConcurrentMatrixDecorator(ConcurrencyProperties concurrencyProperties) {
         super();
+        this.concurrencyProperties = concurrencyProperties;
     }
 
-    public ConcurrentMatrixDecorator(MatrixDecorator next) {
+    public ConcurrentMatrixDecorator(MatrixDecorator next, ConcurrencyProperties concurrencyProperties) {
         super(next);
+        this.concurrencyProperties = concurrencyProperties;
     }
 
     @Override
@@ -23,8 +29,8 @@ public class ConcurrentMatrixDecorator extends MatrixPopulatorDecorator {
         System.out.println("Concurrent:\n--------");
         super.decorateMatrix(matrixInfo);
 
-        try (ForkJoinPool pool = new ForkJoinPool()) {
-            pool.invoke(new MatrixCalculatorTask(matrixInfo));
+        try (ForkJoinPool pool = new ForkJoinPool(concurrencyProperties.getPoolSize())) {
+            pool.invoke(new MatrixCalculatorTask(matrixInfo, concurrencyProperties.getSequentialThreshold()));
         }
 
         Optional.ofNullable(next())
