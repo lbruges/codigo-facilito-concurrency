@@ -1,7 +1,6 @@
 package com.codigofacilito.needlewunsch.controller.impl;
 
 import com.codigofacilito.common.props.model.ConcurrencyProperties;
-import com.codigofacilito.common.props.reader.GlobalProperties;
 import com.codigofacilito.needlewunsch.concurrency.MatrixCalculatorTask;
 import com.codigofacilito.needlewunsch.controller.MatrixPopulatorDecorator;
 import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
