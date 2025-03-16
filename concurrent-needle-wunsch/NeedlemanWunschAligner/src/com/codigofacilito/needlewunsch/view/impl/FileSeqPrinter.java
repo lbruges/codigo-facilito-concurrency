@@ -8,11 +8,16 @@ import java.io.PrintWriter;
 
 public class FileSeqPrinter implements AlignedSequencesPrinter {
 
-    private static final String SEQUENCES_FILENAME = "seq_alignment.txt";
+    private final String seqFilename;
+
+    public FileSeqPrinter(String seqFilename) {
+        this.seqFilename = seqFilename;
+    }
+
 
     @Override
     public void print(AlignedSequences alignedSequences) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(SEQUENCES_FILENAME))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(seqFilename))) {
             pw.println("*************************");
             pw.println("    Aligned Sequences    ");
             pw.println("*************************");

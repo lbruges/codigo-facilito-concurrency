@@ -12,19 +12,20 @@ import static java.lang.Math.max;
  */
 public class MatrixCalculatorTask extends RecursiveTask<Void> {
 
-    private static final int SEQUENTIAL_THRESHOLD = 20;  // TODO: Externalize to tune
     private final MatrixInfo matrixInfo;
     private final int startRow;
     private final int endRow;
+    private final int sequentialThreshold;
 
-    public MatrixCalculatorTask(MatrixInfo matrixInfo, int startRow, int endRow) {
+    public MatrixCalculatorTask(MatrixInfo matrixInfo, int startRow, int endRow, int sequentialThreshold) {
         this.matrixInfo = matrixInfo;
         this.startRow = startRow;
         this.endRow = endRow;
+        this.sequentialThreshold = sequentialThreshold;
     }
 
-    public MatrixCalculatorTask(MatrixInfo matrixInfo) {
-        this(matrixInfo, 1, matrixInfo.getMatrixInput().seqA().length());
+    public MatrixCalculatorTask(MatrixInfo matrixInfo, int sequentialThreshold) {
+        this(matrixInfo, 1, matrixInfo.getMatrixInput().seqA().length(), sequentialThreshold);
     }
 
     @Override
@@ -32,13 +33,13 @@ public class MatrixCalculatorTask extends RecursiveTask<Void> {
         int numRows = endRow - startRow;
 
         // Controlling splitting by using a threshold
-        if (numRows <= SEQUENTIAL_THRESHOLD) {
+        if (numRows <= sequentialThreshold) {
             computeSequentially();
         } else {
             // Split the rows in two, as they're independent and can be computed in parallel
             int midRow = (startRow + endRow) / 2;
-            MatrixCalculatorTask upperTask = new MatrixCalculatorTask(matrixInfo, startRow, midRow);
-            MatrixCalculatorTask lowerTask = new MatrixCalculatorTask(matrixInfo, midRow, endRow);
+            MatrixCalculatorTask upperTask = new MatrixCalculatorTask(matrixInfo, startRow, midRow, sequentialThreshold);
+            MatrixCalculatorTask lowerTask = new MatrixCalculatorTask(matrixInfo, midRow, endRow, sequentialThreshold);
 
             // Fork one task and compute the other in parallel
             lowerTask.fork();
