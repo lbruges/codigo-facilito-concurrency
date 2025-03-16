@@ -34,6 +34,13 @@ public class BacktrackerProperties implements PropsWithPrefix {
         return PROPS_PREFIX;
     }
 
+    @Override
+    public String toString() {
+        return "BacktrackerProperties{" +
+                "printer=" + printer +
+                '}';
+    }
+
     public static class BactrackPropsBuilder {
         private Optional<Properties> propertiesOpt;
         private PrinterProperties printer;

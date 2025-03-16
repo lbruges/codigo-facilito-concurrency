@@ -34,6 +34,15 @@ public class ConcurrencyProperties implements PropsWithPrefix {
         return PROPS_PREFIX;
     }
 
+    @Override
+    public String toString() {
+        return "ConcurrencyProperties{" +
+                "enabled=" + enabled +
+                ", poolSize=" + poolSize +
+                ", sequentialThreshold=" + sequentialThreshold +
+                '}';
+    }
+
     public static class ConcurrencyPropsBuilder {
 
         private String basePath;

@@ -43,6 +43,14 @@ public class MatrixProcessorProperties implements PropsWithPrefix {
         return concurrency;
     }
 
+    @Override
+    public String toString() {
+        return "MatrixProcessorProperties{" +
+                "concurrency=" + concurrency +
+                ", printer=" + printer +
+                '}';
+    }
+
     public static class MatrixPropsBuilder {
 
         private Optional<Properties> propertiesOpt;

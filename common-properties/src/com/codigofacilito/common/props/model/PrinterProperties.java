@@ -52,6 +52,15 @@ public class PrinterProperties implements PropsWithPrefix {
         return filename;
     }
 
+    @Override
+    public String toString() {
+        return "PrinterProperties{" +
+                "enabled=" + enabled +
+                ", output=" + output +
+                ", filename='" + filename + '\'' +
+                '}';
+    }
+
     public static class PrinterPropertiesBuilder {
 
         private String basePath;
