@@ -1,6 +1,5 @@
 package com.codigofacilito.common.props.model;
 
-import java.util.Optional;
 import java.util.Properties;
 
 import static com.codigofacilito.common.props.util.PropsUtils.PROPS_SEPARATOR;

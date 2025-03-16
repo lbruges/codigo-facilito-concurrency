@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.Properties;
 
 import static com.codigofacilito.common.props.model.PrinterProperties.PrinterOutput.CONSOLE;
-import static java.util.Objects.isNull;
 
 public class MatrixProcessorProperties implements PropsWithPrefix {
     private static final String PROPS_PREFIX = "matrix";

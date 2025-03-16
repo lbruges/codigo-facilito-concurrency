@@ -28,6 +28,14 @@ public class GlobalProperties {
                 .build();
     }
 
+    public MatrixProcessorProperties getMatrixProperties() {
+        return matrixProperties;
+    }
+
+    public BacktrackerProperties getBacktrackerProperties() {
+        return backtrackerProperties;
+    }
+
     private Optional<Properties> readProperties() {
         try {
             String baseDir = new File(GlobalProperties.class.getProtectionDomain().getCodeSource().getLocation()
@@ -48,7 +56,7 @@ public class GlobalProperties {
         }
     }
 
-    public GlobalProperties getInstance() {
+    public static GlobalProperties getInstance() {
         if (isNull(instance)) {
             instance = new GlobalProperties();
         }

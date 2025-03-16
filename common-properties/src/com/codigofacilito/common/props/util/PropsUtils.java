@@ -1,6 +1,5 @@
 package com.codigofacilito.common.props.util;
 
-import java.util.Optional;
 import java.util.Properties;
 
 public class PropsUtils {
@@ -27,15 +26,19 @@ public class PropsUtils {
     }
 
     public static boolean readBooleanProperty(Properties properties, String propertyName, boolean defaultValue) {
-        return Optional.ofNullable(properties)
-                .map(props -> (boolean) properties.getOrDefault(propertyName, defaultValue))
-                .orElse(defaultValue);
+        try {
+            return Boolean.parseBoolean(readStringProperty(properties, propertyName, String.valueOf(defaultValue)));
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
     public static int readIntegerProperty(Properties properties, String propertyName, int defaultValue) {
-        return Optional.ofNullable(properties)
-                .map(props -> (int) properties.getOrDefault(propertyName, defaultValue))
-                .orElse(defaultValue);
+        try {
+            return Integer.parseInt(readStringProperty(properties, propertyName, String.valueOf(defaultValue)));
+        } catch (Exception e) {
+            return defaultValue;
+        }
     }
 
 
