@@ -18,8 +18,4 @@ public class MatrixPrinterDecorator implements MatrixDecorator {
         return null;
     }
 
-    @Override
-    public void setNext(MatrixDecorator next) {
-        // Final operation, not required
-    }
 }

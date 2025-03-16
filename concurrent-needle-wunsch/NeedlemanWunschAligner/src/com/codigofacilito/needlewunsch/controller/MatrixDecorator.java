@@ -7,6 +7,4 @@ public interface MatrixDecorator {
 
     MatrixDecorator next();
 
-    void setNext(MatrixDecorator next);
-
 }

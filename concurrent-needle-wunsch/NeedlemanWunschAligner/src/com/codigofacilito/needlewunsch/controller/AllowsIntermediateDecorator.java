@@ -1,7 +1,7 @@
 package com.codigofacilito.needlewunsch.controller;
 
 public abstract class AllowsIntermediateDecorator implements MatrixDecorator {
-    private MatrixDecorator next;
+    private final MatrixDecorator next;
 
     public AllowsIntermediateDecorator() {
         this.next = null;
@@ -16,8 +16,4 @@ public abstract class AllowsIntermediateDecorator implements MatrixDecorator {
         return next;
     }
 
-    @Override
-    public void setNext(MatrixDecorator next) {
-        this.next = next;
-    }
 }
