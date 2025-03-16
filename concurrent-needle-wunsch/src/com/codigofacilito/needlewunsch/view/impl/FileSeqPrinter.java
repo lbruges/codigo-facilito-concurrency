@@ -1,7 +1,7 @@
-package needlewunsch.view.impl;
+package com.codigofacilito.needlewunsch.view.impl;
 
-import needlewunsch.models.AlignedSequences;
-import needlewunsch.view.AlignedSequencesPrinter;
+import com.codigofacilito.needlewunsch.models.AlignedSequences;
+import com.codigofacilito.needlewunsch.view.AlignedSequencesPrinter;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;

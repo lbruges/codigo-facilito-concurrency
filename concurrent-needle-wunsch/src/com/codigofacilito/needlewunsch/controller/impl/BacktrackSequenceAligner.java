@@ -1,11 +1,11 @@
-package needlewunsch.controller.impl;
+package com.codigofacilito.needlewunsch.controller.impl;
 
-import needlewunsch.controller.SequenceAligner;
-import needlewunsch.models.AlignedSequences;
-import needlewunsch.models.InputData;
-import needlewunsch.models.MatrixInfo;
+import com.codigofacilito.needlewunsch.controller.SequenceAligner;
+import com.codigofacilito.needlewunsch.models.AlignedSequences;
+import com.codigofacilito.needlewunsch.models.InputData;
+import com.codigofacilito.needlewunsch.models.MatrixInfo;
 
-import static needlewunsch.models.InputData.GAP_CHAR;
+import static com.codigofacilito.needlewunsch.models.InputData.GAP_CHAR;
 
 public class BacktrackSequenceAligner implements SequenceAligner {
 

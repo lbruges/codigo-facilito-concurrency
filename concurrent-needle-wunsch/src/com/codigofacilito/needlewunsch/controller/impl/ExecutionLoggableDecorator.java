@@ -1,8 +1,8 @@
-package needlewunsch.controller.impl;
+package com.codigofacilito.needlewunsch.controller.impl;
 
-import needlewunsch.controller.AllowsIntermediateDecorator;
-import needlewunsch.controller.MatrixDecorator;
-import needlewunsch.models.MatrixInfo;
+import com.codigofacilito.needlewunsch.controller.AllowsIntermediateDecorator;
+import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
+import com.codigofacilito.needlewunsch.models.MatrixInfo;
 
 import static java.util.Objects.isNull;
 

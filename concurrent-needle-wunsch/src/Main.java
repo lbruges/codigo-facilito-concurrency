@@ -1,14 +1,14 @@
 
-import needlewunsch.controller.MatrixDecorator;
-import needlewunsch.controller.SequenceAligner;
-import needlewunsch.controller.impl.BacktrackSequenceAligner;
-import needlewunsch.controller.impl.ConcurrentMatrixDecorator;
-import needlewunsch.controller.impl.ExecutionLoggableDecorator;
-import needlewunsch.controller.impl.SequentialMatrixDecorator;
-import needlewunsch.models.InputData;
-import needlewunsch.models.MatrixInfo;
-import needlewunsch.view.AlignedSequencesPrinter;
-import needlewunsch.view.impl.FileSeqPrinter;
+import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
+import com.codigofacilito.needlewunsch.controller.SequenceAligner;
+import com.codigofacilito.needlewunsch.controller.impl.BacktrackSequenceAligner;
+import com.codigofacilito.needlewunsch.controller.impl.ConcurrentMatrixDecorator;
+import com.codigofacilito.needlewunsch.controller.impl.ExecutionLoggableDecorator;
+import com.codigofacilito.needlewunsch.controller.impl.SequentialMatrixDecorator;
+import com.codigofacilito.needlewunsch.models.InputData;
+import com.codigofacilito.needlewunsch.models.MatrixInfo;
+import com.codigofacilito.needlewunsch.view.AlignedSequencesPrinter;
+import com.codigofacilito.needlewunsch.view.impl.FileSeqPrinter;
 
 public class Main {
     public static void main(String[] args) {

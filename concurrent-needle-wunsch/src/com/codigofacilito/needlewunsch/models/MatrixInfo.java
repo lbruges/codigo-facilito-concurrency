@@ -1,4 +1,4 @@
-package needlewunsch.models;
+package com.codigofacilito.needlewunsch.models;
 
 /**
  * Holds input and score matrix data.

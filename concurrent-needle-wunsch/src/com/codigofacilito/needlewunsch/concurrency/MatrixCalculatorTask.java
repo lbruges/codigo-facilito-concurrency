@@ -1,7 +1,7 @@
-package needlewunsch.concurrency;
+package com.codigofacilito.needlewunsch.concurrency;
 
-import needlewunsch.models.MatrixInfo;
-import needlewunsch.models.InputData;
+import com.codigofacilito.needlewunsch.models.MatrixInfo;
+import com.codigofacilito.needlewunsch.models.InputData;
 
 import java.util.concurrent.RecursiveTask;
 

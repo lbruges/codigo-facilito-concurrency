@@ -1,4 +1,4 @@
-package needlewunsch.controller;
+package com.codigofacilito.needlewunsch.controller;
 
 public abstract class AllowsIntermediateDecorator implements MatrixDecorator {
     private final MatrixDecorator next;

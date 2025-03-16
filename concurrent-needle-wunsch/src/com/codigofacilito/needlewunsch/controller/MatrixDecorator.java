@@ -1,6 +1,6 @@
-package needlewunsch.controller;
+package com.codigofacilito.needlewunsch.controller;
 
-import needlewunsch.models.MatrixInfo;
+import com.codigofacilito.needlewunsch.models.MatrixInfo;
 
 public interface MatrixDecorator {
     void decorateMatrix(MatrixInfo matrixInfo);
