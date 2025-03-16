@@ -11,4 +11,8 @@ matrix.printer.filename=alignment_matrices.txt
 matrix.concurrency.enabled=true
 # matrix.concurrency.pool-size=2
 matrix.concurrency.seq-threshold=20
+matrix.score.gap=-2
+matrix.score.match=1
+matrix.score.miss=-1
+matrix.log-exec-time=true
 ´´´
