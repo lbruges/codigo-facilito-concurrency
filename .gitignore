@@ -53,3 +53,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 .idea/
+
+**/seq_alignment.txt
