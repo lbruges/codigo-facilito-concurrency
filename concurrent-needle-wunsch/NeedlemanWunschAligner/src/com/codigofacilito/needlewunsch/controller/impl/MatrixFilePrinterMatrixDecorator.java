@@ -19,7 +19,7 @@ public class MatrixFilePrinterMatrixDecorator extends TerminalMatrixDecorator {
     @Override
     public void decorateMatrix(MatrixInfo matrixInfo) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
-            pw.println("================ Matrix Alignment ================");
+            pw.println("================= Scoring Matrix =================");
             Arrays.stream(matrixInfo.getScoreMatrix())
                     .map(Arrays::toString)
                     .forEach(pw::println);
