@@ -37,7 +37,7 @@ public class Main {
         var result = sequenceAligner.alignSequences(matrixInfo);
 
         AlignedSequencesPrinter sequencesPrinter = new AlignedSequencesPrinterFactory().definePrinter(globalProps
-                .getBacktrackerProperties());
+                .getBacktrackerProperties().getPrinter());
 
         sequencesPrinter.print(result);
 

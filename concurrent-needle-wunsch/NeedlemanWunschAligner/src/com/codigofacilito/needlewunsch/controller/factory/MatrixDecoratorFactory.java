@@ -9,6 +9,11 @@ import com.codigofacilito.needlewunsch.controller.impl.SequentialMatrixDecorator
 
 public class MatrixDecoratorFactory {
 
+    /**
+     * Determines the decorator definition based on a given configuration.
+     * @param matrixProperties the defined properties.
+     * @return a decorator that will work according to the desired configuration.
+     */
     public MatrixDecorator defineDecorator(MatrixProcessorProperties matrixProperties) {
         MatrixDecorator matrixDecorator = null;
 
