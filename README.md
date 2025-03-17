@@ -12,7 +12,7 @@ Define the following properties:
 backtracker.printer.enabled=true
 backtracker.printer.output=FILE
 backtracker.printer.filename=result.txt
-matrix.printer.enabled=true
+matrix.printer.enabled=false
 matrix.printer.output=FILE
 matrix.printer.filename=matrix.txt
 matrix.concurrency.enabled=true
