@@ -6,8 +6,8 @@ JDK: 1.21
 All properties are optional and have a default value if not defined
 
 ### Sample Global properties:
-Create a new file named <b>application.properties</b> and add it to the out/production folder (if running from IDE), or to the same path that contains the compiled jar. 
-<p>Define the following properties</p>
+Create a new file named <b>application.properties</b> and add it to the out/production folder (if running from IDE), or to the same path that contains the compiled jar.<br> 
+Define the following properties:
 ```
 backtracker.printer.enabled=true
 backtracker.printer.output=FILE
@@ -26,8 +26,8 @@ matrix.log-exec-time=true
 <b>Note:</b> please keep in mind that  matrix.concurrency.pool-size defaults to the number of available processors
 
 ### Sample Web Request properties:
-Create a new file named <b>Request.properties</b> and add it to the out/production folder (if running from IDE), or to the same path that contains the compiled jar. 
-<p>Define the following properties</p>
+Create a new file named <b>request.properties</b> and add it to the out/production folder (if running from IDE), or to the same path that contains the compiled jar. <br>
+Define the following properties:
 ```
 req.url=https://rest.ensembl.org/sequence/id/%s?content-type=application/json
 req.seq-a-id=ENSG00000239615
