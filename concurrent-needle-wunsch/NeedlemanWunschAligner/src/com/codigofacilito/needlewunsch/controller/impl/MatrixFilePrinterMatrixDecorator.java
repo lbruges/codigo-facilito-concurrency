@@ -19,11 +19,11 @@ public class MatrixFilePrinterMatrixDecorator extends TerminalMatrixDecorator {
     @Override
     public void decorateMatrix(MatrixInfo matrixInfo) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(filename))) {
-            pw.println();
+            pw.println("================ Matrix Alignment ================");
             Arrays.stream(matrixInfo.getScoreMatrix())
                     .map(Arrays::toString)
                     .forEach(pw::println);
-            pw.println();
+            pw.println("==================================================");
         } catch (Exception e) {
             System.err.println("Unable to write to file: " + e.getMessage());
         }
