@@ -4,8 +4,8 @@ import com.codigofacilito.common.props.model.MatrixProcessorProperties;
 import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
 import com.codigofacilito.needlewunsch.controller.impl.ConcurrentMatrixDecorator;
 import com.codigofacilito.needlewunsch.controller.impl.ExecutionLoggableDecorator;
-import com.codigofacilito.needlewunsch.controller.impl.MatrixConsolePrinterDecorator;
-import com.codigofacilito.needlewunsch.controller.impl.MatrixFilePrinterDecorator;
+import com.codigofacilito.needlewunsch.controller.impl.MatrixConsolePrinterMatrixDecorator;
+import com.codigofacilito.needlewunsch.controller.impl.MatrixFilePrinterMatrixDecorator;
 import com.codigofacilito.needlewunsch.controller.impl.SequentialMatrixDecorator;
 
 public class MatrixDecoratorFactory {
@@ -21,8 +21,8 @@ public class MatrixDecoratorFactory {
 
         if (printerProps.isEnabled()) {
             matrixDecorator = switch (printerProps.getOutput()) {
-                case CONSOLE -> new MatrixConsolePrinterDecorator();
-                case FILE -> new MatrixFilePrinterDecorator(printerProps.getFilename());
+                case CONSOLE -> new MatrixConsolePrinterMatrixDecorator();
+                case FILE -> new MatrixFilePrinterMatrixDecorator(printerProps.getFilename());
             };
         }
 

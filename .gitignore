@@ -54,5 +54,7 @@ bin/
 .DS_Store
 .idea/
 
+### Project Generater Files ###
 **/seq_alignment.txt
 **/alignment_result.txt
+**/matrix.txt
