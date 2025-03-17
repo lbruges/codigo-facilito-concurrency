@@ -3,7 +3,7 @@ package com.codigofacilito.common.props.model;
 import java.util.Optional;
 import java.util.Properties;
 
-import static com.codigofacilito.common.props.model.PrinterProperties.PrinterOutput.CONSOLE;
+import static com.codigofacilito.common.props.model.PrinterProperties.PrinterOutput.FILE;
 import static com.codigofacilito.common.props.util.PropsUtils.PROPS_SEPARATOR;
 import static com.codigofacilito.common.props.util.PropsUtils.readBooleanProperty;
 
@@ -18,7 +18,7 @@ public class MatrixProcessorProperties implements PropsWithPrefix {
 
     private final static MatrixProcessorProperties DEFAULT = new MatrixProcessorProperties(new ConcurrencyProperties(false,
             Runtime.getRuntime().availableProcessors(), 20), new PrinterProperties(false,
-            CONSOLE, DEFAULT_OUTPUT_FILE), new ScoreProperties(-2, 1, -1), true);
+            FILE, DEFAULT_OUTPUT_FILE), new ScoreProperties(-2, 1, -1), true);
 
     public MatrixProcessorProperties(ConcurrencyProperties concurrency, PrinterProperties printer,
                                      ScoreProperties scoreProperties, boolean logExecTime) {
