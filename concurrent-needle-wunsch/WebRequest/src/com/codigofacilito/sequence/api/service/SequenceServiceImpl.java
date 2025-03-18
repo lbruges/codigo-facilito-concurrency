@@ -1,26 +1,23 @@
-package com.codigofacilito.needlewunsch;
+package com.codigofacilito.sequence.api.service;
 
+import com.codigofacilito.common.props.reader.GlobalProperties;
 import com.codigofacilito.needlewunsch.controller.MatrixDecorator;
 import com.codigofacilito.needlewunsch.controller.SequenceAligner;
 import com.codigofacilito.needlewunsch.controller.factory.AlignedSequencesPrinterFactory;
-import com.codigofacilito.needlewunsch.controller.impl.BacktrackSequenceAligner;
 import com.codigofacilito.needlewunsch.controller.factory.MatrixDecoratorFactory;
+import com.codigofacilito.needlewunsch.controller.impl.BacktrackSequenceAligner;
 import com.codigofacilito.needlewunsch.models.InputData;
 import com.codigofacilito.needlewunsch.models.MatrixInfo;
-import com.codigofacilito.common.props.reader.GlobalProperties;
 import com.codigofacilito.needlewunsch.view.AlignedSequencesPrinter;
 
-public class Main {
+public class SequenceServiceImpl implements SequenceService{
 
-    public static void main() {
 
+    @Override
+    public void process(String seqA, String seqB) {
         var globalProps = GlobalProperties.getInstance();
         var matrixProps = globalProps.getMatrixProperties();
         var scoreProps = matrixProps.getScoreProperties();
-
-        System.out.println("-------- Sequence Alignment! --------");
-        String seqA = "ATGCATGCTCCTTGGAGGGGCTCTGCCCTATCGCTGCAGGATCCCCACTCAGCTGAAGTTGATACCTGATGACATGAAGGAGCAGATTTACAAACTGGCCAAAAAGGGCCTGACTCCCTCACAAGTCAGTGTGATCCTGAGAGATGCACATGTGTTGCACAAGTACGCTTTGTGACAGGCAATGAAATCTTAAGAATTCTTAAGTCCAAGGGACTTGCTCTTGATCTCCCTGATGATCTGTACCATTCAATCAAGAAAGCAGTTGCTATTTGAAAGCATCTCAAACAAAACAGAAAGGATAAGGATGCTAAACTATGCCTGATTCTGACAGAGAGCCGGATTCACCATTTGGCTAGATATTATAAGACCAAGTGAATCCTCCCTCCCAGTTGGAAATATGAGTCATCAACAAACAGCCTCTGCCCTGCTCGCATAA";
-        String seqB = "CTCAGAACCCTTGGGAAGCCCAAGATCGTCAAAAAGAGAACCAAGAAGTTTATCCGGCACCAGTCTGACCGATATGTCAAAATTAAGCGTAACCGGCGGAAACCCAGAGGTATTGACAACAGGGTTCGTGGAAGGTTCAAGGGTTAGATCTTGATGCCCAACATTGATTATGGGAGCAACAAGAAAACAAAGCACATGCTGCCCAGTGGCTTCCGGAAATTCCTGGTCCACACGTCAAGGAGCTGGAAGTGCTGCTGTTGTGCAACAAATCTTACTGTGCTGAGATCGCTCACAATGTTTCCTCCAAGAACCGCAAAGCCATCGTGGAAAAGAGCTGCCCAGCTGGCCGTCAGAGTCACCAACCCCAATCCCAGGCTGCGCAGCAAAGAAAATGAG";
 
         InputData inputData = new InputData(seqA, seqB, scoreProps.getGapScore(), scoreProps.getMatchScore(),
                 scoreProps.getMissScore());
@@ -42,5 +39,4 @@ public class Main {
         sequencesPrinter.print(result);
 
     }
-
 }

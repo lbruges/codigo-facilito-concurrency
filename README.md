@@ -1,6 +1,6 @@
 # codigo-facilito-concurrency
 ## Environment Configuration
-JDK: 1.21
+JDK: 1.23
 
 ## Application Properties
 All properties are optional and have a default value if not defined
@@ -32,4 +32,26 @@ Define the following properties:
 req.url=https://rest.ensembl.org/sequence/id/%s?content-type=application/json
 req.seq-a-id=ENSG00000239615
 req.seq-b-id=ENSG00000239617
+```
+
+## Compiling instructions
+To compile this project using IntelliJ idea, please follow these steps:
+```
+Step 1: Create a New Artifact
+Open your project in IntelliJ IDEA.
+Go to File > Project Structure.
+Select Artifacts in the left panel.
+Click the + button and choose JAR > From modules with dependencies.
+Choose the Main Class (if you're creating an executable JAR) and select the modules you want to include.
+Make sure that the "Include in project build" checkbox is checked.
+Click OK to create the artifact.
+Step 2: Build the Artifact
+After the artifact is set up, go to Build > Build Artifacts.
+Select your artifact and choose Build.
+This will create a JAR file in the out/artifacts directory.
+```
+
+To run the JAR file, place the <b>application.properties</b> and <b>request.properties</b> in the same folder and run:
+```
+java -jar NeedlemanOrchestrator.jar
 ```
