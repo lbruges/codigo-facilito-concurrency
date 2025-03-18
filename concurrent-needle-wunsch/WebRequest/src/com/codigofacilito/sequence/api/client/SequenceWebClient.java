@@ -1,10 +1,17 @@
 package com.codigofacilito.sequence.api.client;
 
-import com.codigofacilito.common.props.model.req.WebRequestProperties;
-
+/**
+ * Simple web client.
+ */
 @FunctionalInterface
 public interface SequenceWebClient {
 
-    String getSequence(WebRequestProperties requestProperties, String sequenceId);
+    /**
+     * Get a DNA sequence based on the sequence id.
+     * @param baseUrl base url
+     * @param sequenceId sequence id
+     * @return sequence data (if found)
+     */
+    String getSequence(String baseUrl, String sequenceId);
 
 }

@@ -16,37 +16,48 @@ import com.codigofacilito.sequence.api.service.SequenceServiceImpl;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 
-
+/**
+ * Sequence handler for a simple server that receives an empty request and process the sequence ids specified in the
+ * request.properties file.
+ */
 public class SequenceHandler implements HttpHandler {
+
+    private static final SequenceWebClient WEB_CLIENT = new SequenceWebClientImpl();
 
     private final SequenceService sequenceService = new SequenceServiceImpl();
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
 
-            RequestProperties requestProperties = RequestProperties.getInstance();
-            WebRequestProperties webRequestProperties = requestProperties.getWebRequestProperties();
-
+            // POST method allowed only
             if (!"POST".equals(exchange.getRequestMethod())) {
                 exchange.sendResponseHeaders(405, -1); // Method not allowed
                 return;
             }
 
-            ExecutorService executor = Executors.newFixedThreadPool(2);
+            RequestProperties requestProperties = RequestProperties.getInstance();
+            WebRequestProperties webRequestProperties = requestProperties.getWebRequestProperties();
 
+            ExecutorService executor = Executors.newFixedThreadPool(2); // 2 threads, one per sequence
+
+            // Obtain sequence ids to query
             String seqAId = webRequestProperties.getSeqAId();
             String seqBId = webRequestProperties.getSeqBId();
 
-            SequenceWebClient client = new SequenceWebClientImpl();
-
+            // Create futures that will handle web client invocation based on the URL in the properties object
             CompletableFuture<String>[] seqFutures = Stream.of(seqAId, seqBId)
-                    .map(seq -> CompletableFuture.supplyAsync(() -> client.getSequence(webRequestProperties, seq), executor))
+                    .map(seq -> CompletableFuture.supplyAsync(() -> WEB_CLIENT.getSequence(webRequestProperties.getUrl(),
+                            seq), executor))
                     .toArray(CompletableFuture[]::new);
 
+            // Wait for all futures to complete
             CompletableFuture.allOf(seqFutures);
 
+            // Shutdown exec service
             executor.shutdown();
+            executor.close();
 
+            // Resolve futures
             String[] sequences = Stream.of(seqFutures)
                     .map(future -> {
                         try {
@@ -63,6 +74,7 @@ public class SequenceHandler implements HttpHandler {
             exchange.sendResponseHeaders(201, "File created successfully".length());
 
             try (OutputStream os = exchange.getResponseBody()) {
+                // Write success response
                 os.write("File created successfully".getBytes());
             }
         }
