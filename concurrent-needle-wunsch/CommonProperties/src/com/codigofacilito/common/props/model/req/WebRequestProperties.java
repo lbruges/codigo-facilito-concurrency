@@ -48,6 +48,18 @@ public class WebRequestProperties implements PropsWithPrefix {
         return PROPS_PREFIX;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public String getSeqAId() {
+        return seqAId;
+    }
+
+    public String getSeqBId() {
+        return seqBId;
+    }
+
     public static class ReqPropsBuilder {
         private Optional<Properties> propertiesOpt;
         private String url;
