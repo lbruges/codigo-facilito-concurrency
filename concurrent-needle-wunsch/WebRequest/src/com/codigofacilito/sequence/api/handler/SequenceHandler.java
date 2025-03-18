@@ -1,20 +1,16 @@
 package com.codigofacilito.sequence.api.handler;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.io.OutputStream;
-import java.util.Optional;
-import java.util.Properties;
-import java.util.concurrent.ForkJoinPool;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 
 import com.codigofacilito.common.props.model.req.WebRequestProperties;
 import com.codigofacilito.common.props.reader.req.RequestProperties;
-import com.codigofacilito.sequence.api.concurrency.HttpRequestTask;
+import com.codigofacilito.sequence.api.client.SequenceWebClient;
+import com.codigofacilito.sequence.api.client.impl.SequenceWebClientImpl;
 import com.codigofacilito.sequence.api.service.SequenceService;
 import com.codigofacilito.sequence.api.service.SequenceServiceImpl;
 import com.sun.net.httpserver.HttpHandler;
@@ -31,63 +27,44 @@ public class SequenceHandler implements HttpHandler {
             RequestProperties requestProperties = RequestProperties.getInstance();
             WebRequestProperties webRequestProperties = requestProperties.getWebRequestProperties();
 
-            if ("POST".equals(exchange.getRequestMethod())) {
-                ForkJoinPool pool = new ForkJoinPool();
+            if (!"POST".equals(exchange.getRequestMethod())) {
+                exchange.sendResponseHeaders(405, -1); // Method not allowed
+                return;
+            }
 
-                HttpRequestTask task1 = new HttpRequestTask(webRequestProperties.getSeqAId());
-                HttpRequestTask task2 = new HttpRequestTask(webRequestProperties.getSeqBId());
+            ExecutorService executor = Executors.newFixedThreadPool(2);
 
-                String response1 = pool.invoke(task1);
-                String response2 = pool.invoke(task2);
+            String seqAId = webRequestProperties.getSeqAId();
+            String seqBId = webRequestProperties.getSeqBId();
 
-                pool.shutdown();
+            SequenceWebClient client = new SequenceWebClientImpl();
 
-                Pattern pattern = Pattern.compile("\"seq\":\"([^\"]+)\"");
-                Matcher matcher1 = pattern.matcher(response1);
-                Matcher matcher2 = pattern.matcher(response2);
+            CompletableFuture<String>[] seqFutures = Stream.of(seqAId, seqBId)
+                    .map(seq -> CompletableFuture.supplyAsync(() -> client.getSequence(webRequestProperties, seq), executor))
+                    .toArray(CompletableFuture[]::new);
 
-                if (matcher1.find()) {
-                    System.out.println("Valor de seq1: " + matcher1.group(1));
-                } else {
-                    System.out.println("No se encontró el valor de seq.");
-                }
+            CompletableFuture.allOf(seqFutures);
 
-                if (matcher2.find()) {
-                    System.out.println("Valor de seq2: " + matcher2.group(1));
-                } else {
-                    System.out.println("No se encontró el valor de seq.");
-                }
+            executor.shutdown();
 
-                sequenceService.process(matcher1.group(1), matcher2.group(1));
+            String[] sequences = Stream.of(seqFutures)
+                    .map(future -> {
+                        try {
+                            return future.get();
+                        } catch (Exception e) {
+                            throw new RuntimeException("Unable to process future", e);
+                        }
+                    })
+                    .toArray(String[]::new);
 
-                // Enviar respuesta
-                exchange.sendResponseHeaders(201, "File created successfully".length());
-                OutputStream os = exchange.getResponseBody();
+            sequenceService.process(sequences[0], sequences[1]);
+
+            // Send response
+            exchange.sendResponseHeaders(201, "File created successfully".length());
+
+            try (OutputStream os = exchange.getResponseBody()) {
                 os.write("File created successfully".getBytes());
-                os.close();
-            } else {
-                exchange.sendResponseHeaders(405, -1); // Método no permitido
             }
         }
 
-
-
-        private String fetchExternalApi(String id) {
-            RequestProperties webRequestProperties = RequestProperties.getInstance();
-            WebRequestProperties web = webRequestProperties.getWebRequestProperties();
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://rest.ensembl.org/sequence/id/"+id+"?content-type=application/json"))
-                    .GET()
-                    .build();
-
-            try {
-                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-                return response.body();
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-                return "{\"error\": \"No se pudo obtener la respuesta\"}";
-            }
-        }
-    }
+}
